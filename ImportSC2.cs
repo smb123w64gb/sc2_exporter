@@ -46,18 +46,11 @@ namespace SC2_3DS
                 uint high = 4;
                 for (uint i = 0; i < vmxobject.WeightTables.VertCount4; i++) { 
                     List < WeightDefXbox > CurrentItter = new List<WeightDefXbox>();
-                    uint curIdx = high;
-                    float wgt = 0.0f;
-                    while(curIdx>0){
+                    for (uint j = 0; j < high; j++) {
                         WeightDefXbox cur = ReadWeightDefXbox(reader);
-                        wgt += cur.BoneWeight;
-                        CurrentItter.Add(new WeightDefXbox() { BoneIdx = cur.BoneIdx, BoneWeight = cur.BoneWeight, PositonXYZ = cur.PositonXYZ, NormalXYZ = cur.NormalXYZ,Unk1=cur.Unk1,Unk2=cur.Unk2,Unk3=cur.Unk3});
-                        curIdx-=1;
-                        if(curIdx == 0){
-                            if(wgt <.99f){
-                                high += 1;
-                                curIdx+=1;
-                            }
+                        CurrentItter.Add(new WeightDefXbox() { BoneIdx = cur.BoneIdx, BoneWeight = cur.BoneWeight, PositonXYZ = cur.PositonXYZ, NormalXYZ = cur.NormalXYZ,Stat=cur.Stat,Unk2=cur.Unk2,Unk3=cur.Unk3});
+                        if(cur.Stat == 1){
+                            high++;
                         }
                     }
                     vmxobject.WeightDef4Bone[i] = CurrentItter;

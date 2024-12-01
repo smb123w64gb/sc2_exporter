@@ -72,7 +72,7 @@ namespace SC2_3DS
             public float BoneWeight;
             public Vector3 NormalXYZ;
             public byte BoneIdx;
-            public byte Unk1;
+            public byte Stat;
             public byte Unk2;
             public byte Unk3;
         }
@@ -85,7 +85,7 @@ namespace SC2_3DS
                 BoneWeight = ReadSingleL(reader),
                 NormalXYZ = ReadVector3L(reader),
                 BoneIdx = reader.ReadByte(),
-                Unk1 = reader.ReadByte(),
+                Stat = reader.ReadByte(),
                 Unk2 = reader.ReadByte(),
                 Unk3 = reader.ReadByte()
             };
