@@ -444,13 +444,13 @@ namespace SC2_3DS
                 index++;
             }
 
-            foreach (var value in vmxobject.WeightDef4Bone)
+            /*foreach (var value in vmxobject.WeightDef4Bone)
             {
                 weightValues.Add(value.BoneWeight);
                 vData.Add((int)value.BoneIdx);
                 vData.Add(index);
                 index++;
-            }
+            }*/
         }
 
         public static List<float[]> Buffer2PositionToArray(Buffer2Xbox[] buffer2)
@@ -1242,7 +1242,7 @@ namespace SC2_3DS
             public WeightDefXbox[] WeightDef1Bone;
             public WeightDefXbox[] WeightDef2Bone;
             public WeightDefXbox[] WeightDef3Bone;
-            public WeightDefXbox[] WeightDef4Bone;
+            public List<WeightDefXbox>[] WeightDef4Bone;
             public MatrixUnk MatrixUnk;
             public MatrixTable[] MatrixTables;
             public Dictionary<int, int> MatrixDictionary;

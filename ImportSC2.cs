@@ -35,7 +35,7 @@ namespace SC2_3DS
                 vmxobject.WeightDef1Bone = new WeightDefXbox[vmxobject.WeightTables.VertCount1 * 1];
                 vmxobject.WeightDef2Bone = new WeightDefXbox[vmxobject.WeightTables.VertCount2 * 2];
                 vmxobject.WeightDef3Bone = new WeightDefXbox[vmxobject.WeightTables.VertCount3 * 3];
-                vmxobject.WeightDef4Bone = new WeightDefXbox[vmxobject.WeightTables.VertCount4 * 4];
+                vmxobject.WeightDef4Bone = new List<WeightDefXbox>[vmxobject.WeightTables.VertCount4];
                 input.Seek(vmxobject.WeightTables.WeightBufferOffset, SeekOrigin.Begin);
                 for (uint i = 0; i < vmxobject.WeightTables.VertCount1; i++)
                     vmxobject.WeightDef1Bone[i] = ReadWeightDefXbox(reader);
@@ -43,8 +43,25 @@ namespace SC2_3DS
                     vmxobject.WeightDef2Bone[i] = ReadWeightDefXbox(reader);
                 for (uint i = 0; i < vmxobject.WeightTables.VertCount3 * 3; i++)
                     vmxobject.WeightDef3Bone[i] = ReadWeightDefXbox(reader);
-                for (uint i = 0; i < vmxobject.WeightTables.VertCount4 * 4; i++)
-                    vmxobject.WeightDef4Bone[i] = ReadWeightDefXbox(reader);
+                uint high = 4;
+                for (uint i = 0; i < vmxobject.WeightTables.VertCount4; i++) { 
+                    List < WeightDefXbox > CurrentItter = new List<WeightDefXbox>();
+                    uint curIdx = high;
+                    float wgt = 0.0f;
+                    while(curIdx>0){
+                        WeightDefXbox cur = ReadWeightDefXbox(reader);
+                        wgt += cur.BoneWeight;
+                        CurrentItter.Add(new WeightDefXbox() { BoneIdx = cur.BoneIdx, BoneWeight = cur.BoneWeight, PositonXYZ = cur.PositonXYZ, NormalXYZ = cur.NormalXYZ,Unk1=cur.Unk1,Unk2=cur.Unk2,Unk3=cur.Unk3});
+                        curIdx-=1;
+                        if(curIdx == 0){
+                            if(wgt <.99f){
+                                high += 1;
+                                curIdx+=1;
+                            }
+                        }
+                    }
+                    vmxobject.WeightDef4Bone[i] = CurrentItter;
+                }
             }
             //MATRIX Unknown
             input.Seek(vmxobject.VMXheader.MatrixUnkTableOffset, SeekOrigin.Begin);
