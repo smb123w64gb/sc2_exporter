@@ -134,7 +134,7 @@ namespace SC2_3DS
             j = 0;
             for (int i = 0; i < vmxobject.WeightTables.VertCount4; i++, vertex_index++, j += 4)
             {
-                vertices.Add(CreateVertex(vmxobject.Buffer2[vertex_index], vmxobject.Buffer1[vertex_index], vmxobject.WeightDef4Bone, j, 4));
+                vertices.Add(CreateVertex(vmxobject.Buffer2[vertex_index], vmxobject.Buffer1[vertex_index], vmxobject.WeightDef4Bone[i].ToArray(), 0, vmxobject.WeightDef4Bone[i].Count));
             }
             j = 0;
 
@@ -200,30 +200,39 @@ namespace SC2_3DS
                                                  weight_length > 0 ? weight_def[j + 0].BoneIdx : 0,
                                                  weight_length > 1 ? weight_def[j + 1].BoneIdx : 0,
                                                  weight_length > 2 ? weight_def[j + 2].BoneIdx : 0,
-                                                 weight_length > 3 ? weight_def[j + 3].BoneIdx : 0), 
-                                                 new Vector4(0, 0, 0, 0),
+                                                 weight_length > 3 ? weight_def[j + 3].BoneIdx : 0),
+                                                 new Vector4(
+                                                 weight_length > 4 ? weight_def[j + 4].BoneIdx : 0,
+                                                 weight_length > 5 ? weight_def[j + 5].BoneIdx : 0,
+                                                 weight_length > 6 ? weight_def[j + 6].BoneIdx : 0,
+                                                 weight_length > 7 ? weight_def[j + 7].BoneIdx : 0),
                                                  new Vector4(
                                                  weight_length > 0 ? weight_def[j + 0].BoneWeight : 0,
                                                  weight_length > 1 ? weight_def[j + 1].BoneWeight : 0,
                                                  weight_length > 2 ? weight_def[j + 2].BoneWeight : 0,
-                                                 weight_length > 3 ? weight_def[j + 3].BoneWeight : 0), 
-                                                 new Vector4(0, 0, 0, 0));
+                                                 weight_length > 3 ? weight_def[j + 3].BoneWeight : 0),
+                                                 new Vector4(
+                                                 weight_length > 4 ? weight_def[j + 4].BoneWeight : 0,
+                                                 weight_length > 5 ? weight_def[j + 5].BoneWeight : 0,
+                                                 weight_length > 6 ? weight_def[j + 6].BoneWeight : 0,
+                                                 weight_length > 7 ? weight_def[j + 7].BoneWeight : 0));
             return new VERTEXSKINNED(
                 new VertexPositionNormal(
-                    buffer2.Position.X, 
-                    buffer2.Position.Y, 
-                    buffer2.Position.Z, 
-                    buffer2.Normal.X, 
-                    buffer2.Normal.Y, 
+                    buffer2.Position.X,
+                    buffer2.Position.Y,
+                    buffer2.Position.Z,
+                    buffer2.Normal.X,
+                    buffer2.Normal.Y,
                     buffer2.Normal.Z),
                 new VertexColor1Texture1(new Vector4(
-                (float)buffer1.ColorRGBA.B1 / (float)255, 
-                (float)buffer1.ColorRGBA.B2 / (float)255, 
+                (float)buffer1.ColorRGBA.B1 / (float)255,
+                (float)buffer1.ColorRGBA.B2 / (float)255,
                 (float)buffer1.ColorRGBA.B3 / (float)255,
                 (float)buffer1.ColorRGBA.B4 / (float)255), buffer1.TileUV),
                 new VertexJoints4(weights)
             );
         }
+
 
         private static VERTEXSTATIC CreateVertex(Buffer4Xbox buffer4, byte bone_idx)
         {
