@@ -267,6 +267,7 @@ namespace SC2_3DS
             public byte B2;
             public byte B3;
             public byte B4;
+            public byte[] ToBytes() => [B1,B2,B3,B4];
         }
         public static Byte4Array ReadByte4Array(BinaryReader reader)
         {

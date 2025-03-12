@@ -27,6 +27,10 @@ namespace SC2_3DS
             };
             return value;
         }
+        public static void WriteTextureData(BinaryWriter writer, TextureData data)
+        {
+            writer.Write(data.Data);
+        }
 
         public struct TextureMap
         {
@@ -44,6 +48,14 @@ namespace SC2_3DS
             };
             value.Values = ReadTextureMapValuesL(reader, value.Size, (ushort)value.Type);
             return value;
+        }
+        public static void WriteTextureMapXbox(BinaryWriter writer,TextureMap textureMap){
+            writer.Write((ushort)textureMap.Type);
+            writer.Write((ushort)((textureMap.Values.Length*4)+4));
+            foreach(float x in textureMap.Values){
+                writer.Write(x);
+            }
+
         }
 
         public static TextureMap ReadTextureMapGCN(BinaryReader reader)

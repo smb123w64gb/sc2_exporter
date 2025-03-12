@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Reflection.Metadata;
 using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,6 +77,37 @@ namespace SC2_3DS
                 Ukn02_offset = ReadUInt32L(reader)
             };
             return value;
+        }
+        static ushort ShortNo = 0x4E4F;
+        static uint DeadOffset = 0xDEADBEAF;
+        public static void WriteVMXHeader(BinaryWriter f,VMXHeader hdr)
+        {
+            f.Write(hdr.Magic.ToBytes());
+            f.Write((byte)hdr.ConsoleVersion);
+            f.Write([hdr.Ukn01,hdr.Ukn02,hdr.Ukn03,hdr.Ukn04]);
+            f.Write((byte)hdr.Contents);
+
+            f.Write(ShortNo);//MatrixCount
+            f.Write(ShortNo);//Object0Count
+            f.Write(ShortNo);//Object1Count
+            f.Write(ShortNo);//Object2Count
+            f.Write(ShortNo);//BoneCount
+            f.Write(ShortNo);//MaterialCount
+            f.Write(ShortNo);//MeshCount
+
+            f.Write(DeadOffset);//TextureTableOffset
+            f.Write(DeadOffset);//MaterialOffset
+            f.Write(DeadOffset);//TextureMapOffset
+            f.Write(DeadOffset);//MatrixTableOffset
+            f.Write(DeadOffset);//MatrixUnkTableOffset
+            f.Write(DeadOffset);//Object0Offset
+            f.Write(DeadOffset);//Object1Offset
+            f.Write(DeadOffset);//Object2Offset
+            f.Write(DeadOffset);//WeightTableOffset
+            f.Write(DeadOffset);//Ukn01_offset
+            f.Write(DeadOffset);//BoneOffset
+            f.Write(DeadOffset);//BoneNameOffset
+            f.Write(DeadOffset);//Ukn02_offset
         }
 
         //Gamecube
