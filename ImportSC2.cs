@@ -26,6 +26,7 @@ namespace SC2_3DS
             input.Seek(0L, SeekOrigin.Begin);
             vmxobject.VMXheader = ReadVMXHeader(reader);
             //WEIGHTING
+            if(vmxobject.VMXheader.WeightTableOffset > 0) { 
             input.Seek(vmxobject.VMXheader.WeightTableOffset, SeekOrigin.Begin);
             uint weightOffsetCheck = ReadUInt32L(reader);
             if (weightOffsetCheck != 0)
@@ -55,6 +56,7 @@ namespace SC2_3DS
                     }
                     vmxobject.WeightDef4Bone[i] = CurrentItter;
                 }
+            }
             }
             //MATRIX Unknown
             input.Seek(vmxobject.VMXheader.MatrixUnkTableOffset, SeekOrigin.Begin);

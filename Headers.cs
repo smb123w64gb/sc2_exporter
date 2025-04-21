@@ -87,27 +87,27 @@ namespace SC2_3DS
             f.Write([hdr.Ukn01,hdr.Ukn02,hdr.Ukn03,hdr.Ukn04]);
             f.Write((byte)hdr.Contents);
 
-            f.Write(ShortNo);//MatrixCount
-            f.Write(ShortNo);//Object0Count
-            f.Write(ShortNo);//Object1Count
-            f.Write(ShortNo);//Object2Count
-            f.Write(ShortNo);//BoneCount
-            f.Write(ShortNo);//MaterialCount
-            f.Write(ShortNo);//MeshCount
+            f.Write(hdr.MatrixCount);//MatrixCount
+            f.Write(hdr.Object0Count);//Object0Count
+            f.Write(hdr.Object1Count);//Object1Count
+            f.Write(hdr.Object2Count);//Object2Count
+            f.Write(hdr.BoneCount);//BoneCount
+            f.Write(hdr.MaterialCount);//MaterialCount
+            f.Write(hdr.MeshCount);//MeshCount
 
-            f.Write(DeadOffset);//TextureTableOffset
-            f.Write(DeadOffset);//MaterialOffset
-            f.Write(DeadOffset);//TextureMapOffset
-            f.Write(DeadOffset);//MatrixTableOffset
-            f.Write(DeadOffset);//MatrixUnkTableOffset
-            f.Write(DeadOffset);//Object0Offset
-            f.Write(DeadOffset);//Object1Offset
-            f.Write(DeadOffset);//Object2Offset
-            f.Write(DeadOffset);//WeightTableOffset
-            f.Write(DeadOffset);//Ukn01_offset
-            f.Write(DeadOffset);//BoneOffset
-            f.Write(DeadOffset);//BoneNameOffset
-            f.Write(DeadOffset);//Ukn02_offset
+            f.Write(hdr.TextureTableOffset);//TextureTableOffset
+            f.Write(hdr.MaterialOffset);//MaterialOffset
+            f.Write(hdr.TextureMapOffset);//TextureMapOffset
+            f.Write(hdr.MatrixTableOffset);//MatrixTableOffset
+            f.Write(hdr.MatrixUnkTableOffset);//MatrixUnkTableOffset
+            f.Write(hdr.Object0Offset);//Object0Offset
+            f.Write(hdr.Object1Offset);//Object1Offset
+            f.Write(hdr.Object2Offset);//Object2Offset
+            f.Write(hdr.WeightTableOffset);//WeightTableOffset
+            f.Write(hdr.Ukn01_offset);//Ukn01_offset
+            f.Write(hdr.BoneOffset);//BoneOffset
+            f.Write(hdr.BoneNameOffset);//BoneNameOffset
+            f.Write(hdr.Ukn02_offset);//Ukn02_offset
         }
 
         //Gamecube

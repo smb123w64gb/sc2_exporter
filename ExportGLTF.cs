@@ -179,7 +179,9 @@ namespace SC2_3DS
                 var mesh_static = VERTEXSTATIC.CreateCompatibleMesh();
                 var num = vmxobject.MaterialDictionary.GetValueOrDefault((int)vmxobject.StaticMeshList[i].MaterialOffset);
                 var prim_static = mesh_static.UsePrimitive(mats.GetValueOrDefault(num));
+                if(matrix.ParentBoneIdx > 0) { 
                 matrix.Matrix.Translation = node_map[matrix.ParentBoneIdx].WorldMatrix.Translation;// have to change the matrix translation to bone translation?
+                }
 
                 for (int k = 0; k < vmxobject.StaticMeshList[i].StaticMesh.Indicies.Count; k++)
                 {
@@ -188,8 +190,14 @@ namespace SC2_3DS
                         vertices[vmxobject.StaticMeshList[i].StaticMesh.Indicies[k].Item2],
                         vertices[vmxobject.StaticMeshList[i].StaticMesh.Indicies[k].Item3]);
                 }
-                //scene.AddRigidMesh(mesh_static, matrix.Matrix);
-                scene.AddSkinnedMesh(mesh_static, matrix.Matrix, joint_list.ToArray());
+                
+                if(joint_list.Count > 0) { 
+                    scene.AddSkinnedMesh(mesh_static, matrix.Matrix, joint_list.ToArray());
+                }
+                else
+                {
+                    scene.AddRigidMesh(mesh_static, matrix.Matrix);
+                }
                 vertices = new List<VERTEXSTATIC>();
             }
         }
