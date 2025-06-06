@@ -281,7 +281,7 @@ namespace SC2_3DS
                 var image = ImageBuilder.From(file_data);
                 var material = new MaterialBuilder()
                     .WithDoubleSide(cull)
-                    .WithBaseColor(image, vmxobject.MaterialTables[num].DiffuseRGBA);
+                    .WithBaseColor(image, Vector4.Clamp(vmxobject.MaterialTables[num].DiffuseRGBA,new Vector4(0.0f, 0.0f, 0.0f, 0.0f),new Vector4(1.0f, 1.0f, 1.0f, 1.0f)));
                 if (vmxobject.MaterialTables[num].VXTOffset1 != 0)
                 {
                     texture_num = vmxobject.TextureDictionary.GetValueOrDefault((int)vmxobject.MaterialTables[num].VXTOffset1);
